@@ -1,6 +1,6 @@
 import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material'
+import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -9,9 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   declarations: [HeaderComponent, FooterComponent, SidebarComponent],
   imports: [
     CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule
+    SharedModule
   ],
   exports: [
     HeaderComponent,
