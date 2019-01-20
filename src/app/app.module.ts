@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CoreModule } from './core/core.module';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+
+//import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -18,8 +18,8 @@ import { LoginModule } from './login/login.module'
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    HttpClientModule,
-    FormsModule,
+//    HttpClientModule,
+//    FormsModule,
     MatSidenavModule,
     BrowserAnimationsModule,
     LoginModule
