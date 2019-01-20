@@ -5,8 +5,11 @@ import {
   MatIconModule,
   MatButtonModule,
   MatCardModule,
-  MatInputModule
+  MatInputModule,
+  MatListModule,
+  MatSlideToggleModule,
 } from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import {
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatSlideToggleModule,
   ],
   exports: [
     CommonModule,
@@ -25,7 +31,10 @@ import {
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatSlideToggleModule,
   ]
 })
 export class SharedModule { }
