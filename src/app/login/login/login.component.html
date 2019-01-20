@@ -25,12 +25,13 @@
   <mat-card>
       <mat-card-header>
         <mat-card-title>
-            Cubs' quips draw ire of Cards' Molina: 'Losers'
+            {{oneTitle}}
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src="https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2017%2F0616%2Fr220832_1296x864_3%2D2.jpg">
+      <img mat-card-image [src]="onePic">
       <mat-card-content>
-          Cardinals catcher Yadier Molina took exception to quips about St. Louis by Cubs star Kris Bryant and Ryan Dempster, saying only \"stupid players and losers\" make fun of other cities.
+          {{oneContent}}
+          <p><a [href]="oneUrl">Detail</a>, got from <a href="https://newsapi.org">NewsAPI</a></p>
       </mat-card-content>
 
     </mat-card>

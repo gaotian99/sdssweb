@@ -1,11 +1,8 @@
 //import { Component, OnInit } from '@angular/core';
 
 import {HttpClient} from '@angular/common/http';
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort} from '@angular/material';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import { NullInjector } from '@angular/core/src/di/injector';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,21 +14,20 @@ export class LoginComponent implements OnInit {
   dataDatabase: NewsApiHttpDao | null;
   oneTitle: string = "Big news will coming";
   oneContent: string = "Please wait";
-  onePic: string = "https://www.espnfrontrow.com/wp-content/uploads/2017/04/Cropped698by400ESPNlogo.jpg";
-  data: NewsArticle = null;
+  onePic: string = "";
+  oneUrl: string = "http://www.espn.com";
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.dataDatabase = new NewsApiHttpDao(this.http);
     this.dataDatabase.getNewsFromHttp().toPromise()
-      .then( datab => this.data = datab.articles[0] )
-    if(!this.data)
-    {
-      this.oneTitle = this.data.title;
-      this.oneContent = this.data.description;
-      this.onePic = this.data.urlToImage;
-    }
+      .then( datab => {
+        this.oneTitle = datab.articles[0].title;
+        this.oneContent = datab.articles[0].description;
+        this.onePic = datab.articles[0].urlToImage;
+        this.oneUrl = datab.articles[0].url;
+      } ).catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
@@ -51,6 +47,7 @@ export interface NewsArticle {
   title: string;
   description: string;
   urlToImage: string;
+  url: string;
 }
 
 export class NewsApiHttpDao {
