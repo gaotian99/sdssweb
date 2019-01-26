@@ -11,10 +11,13 @@ import {
   MatGridListModule,
 } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import { MatSidenavModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ImageListSelectComponent } from './image-list-select/image-list-select.component';
+// import { MatIconRegistry } from '@angular/material';
 
 @NgModule({
-  declarations: [],
+  declarations: [ImageListSelectComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -26,6 +29,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatListModule,
     MatSlideToggleModule,
     MatGridListModule,
+    MatSidenavModule,
+    BrowserAnimationsModule,
+//    MatIconRegistry,
   ],
   exports: [
     CommonModule,
@@ -38,6 +44,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatListModule,
     MatSlideToggleModule,
     MatGridListModule,
-  ]
+    MatSidenavModule,
+    BrowserAnimationsModule,
+//    MatIconRegistry,
+    ImageListSelectComponent,
+  ],
+  entryComponents: []
 })
 export class SharedModule { }

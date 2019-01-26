@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { LoginRoutingModule} from './login-routing.module';
-import { RegisterComponent } from './register/register.component'
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,9 @@ import { RegisterComponent } from './register/register.component'
   ],
   imports: [
     SharedModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class LoginModule { }

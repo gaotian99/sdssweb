@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form, $event)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>
@@ -8,26 +8,28 @@
     <mat-card-content>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>username</mat-label>
-        <input matInput type="text" placeholder="your username">
+        <input matInput type="text" placeholder="your username" formControlName="username">
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>email address</mat-label>
-        <input matInput type="text" placeholder="your email address">
+        <input matInput type="text" placeholder="your email address" formControlName="email">
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>password</mat-label>
-        <input matInput type="password" placeholder="your password">
+        <input matInput type="password" placeholder="your password" formControlName="password">
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>repeat password</mat-label>
-        <input matInput type="password" placeholder="please repeat your password">
+        <input matInput type="password" placeholder="please repeat your password" formControlName="repeat">
       </mat-form-field>
-      <mat-grid-list cols="6" rowHeight="1:1">
-        <mat-grid-tile *ngFor="let item of items">
-          <mat-icon class="avatar" [svgIcon]="item"></mat-icon>
-        </mat-grid-tile>
-      </mat-grid-list>
-      <button mat-raised-button type="button" color="accent">Sign up</button>
+        <app-image-list-select
+          [useSvgIcon]="true"
+          [cols]="6"
+          [title]="'Choose avatar'"
+          [items]="items"
+        formControlName="avatar">
+        </app-image-list-select>
+      <button mat-raised-button type="submit" color="accent">Sign up</button>
     </mat-card-content>
     <mat-card-actions class="text-right">
       <p>Already have a account? Please <a routerLink="/signin">Signin</a></p>

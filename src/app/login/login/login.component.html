@@ -1,4 +1,4 @@
-<form>
+<form  [formGroup]="loginForm" (ngSubmit)='onSubmit(loginForm, $event)'>
   <mat-card>
     <mat-card-header>
       <mat-card-title>
@@ -8,13 +8,13 @@
     <mat-card-content>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>email address</mat-label>
-        <input matInput type="text" placeholder="your email address">
+        <input matInput type="text" placeholder="your email address" formControlName="email">
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>password</mat-label>
-        <input matInput type="password" placeholder="your password">
+        <input matInput type="password" placeholder="your password" formControlName="password">
       </mat-form-field>
-      <button mat-raised-button type="button" color="accent">Login</button>
+      <button mat-raised-button type="submit" color="accent" [disabled]="!loginForm.valid">Login</button>
     </mat-card-content>
     <mat-card-actions class="text-right">
       <p>Don't have a account? Please <a routerLink="/signup">Sign Up</a></p>
@@ -28,7 +28,7 @@
             {{oneTitle}}
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image [src]="onePic">
+      <img mat-card-image [src]="onePic" [alt]="oneTitle">
       <mat-card-content>
           {{oneContent}}
           <p><a [href]="oneUrl">Detail</a>, got from <a href="https://newsapi.org">NewsAPI</a></p>

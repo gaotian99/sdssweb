@@ -1,7 +1,6 @@
-//import { Component, OnInit } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable, of as ObservableOf } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -10,52 +9,51 @@ import { map, catchError } from 'rxjs/operators';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
+  loginForm: FormGroup;
   dataDatabase: NewsApiHttpDao | null;
-  oneTitle: string = "Big news will coming";
-  oneContent: string = "Please wait";
-  onePic: string = "";
-  oneUrl: string = "http://www.espn.com";
-  getNum: number = 0;
+  oneTitle = 'Big news will coming';
+  oneContent = 'Please wait';
+  onePic = '';
+  oneUrl = 'http://www.espn.com';
+  getNum = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
+    });
+      // new FormGroup({
+      // email: new FormControl('yourname@email.com',
+      //  Validators.compose([Validators.required, Validators.email])),
+      // password: new FormControl('', Validators.required)
+    // });
+
     this.dataDatabase = new NewsApiHttpDao(this.http);
-    this.dataDatabase!.getNewsFromHttp().pipe(
+    this.dataDatabase.getNewsFromHttp().pipe(
       map(data => {
         this.getNum = (data.totalResults !== null) ? data.totalResults : 0;
-        //if(this.getNum > 0) this.getNum = Math.floor(Math.random()*this.getNum);
         return data.articles;
       }),
       catchError(() => ObservableOf([]))
     ).subscribe(data => {
       if (this.getNum > 0) {
-        let pickNum: number = Math.floor(Math.random()*this.getNum);
+        const pickNum: number = Math.floor(Math.random() * this.getNum);
         this.oneTitle = data[pickNum].title;
         this.oneContent = data[pickNum].description;
         this.onePic = data[pickNum].urlToImage;
         this.oneUrl = data[pickNum].url;
       }
     });
-
-
-
-    //.toPromise()
-    //  .then( datab => {
-    //    this.oneTitle = datab.articles[0].title;
-    //    this.oneContent = datab.articles[0].description;
-    //    this.onePic = datab.articles[0].urlToImage;
-    //    this.oneUrl = datab.articles[0].url;
-    //  } ).catch(this.handleError);
   }
 
-  //  private handleError(error: any): Promise<any> {
-  //    console.error("error occurred", error);
-  //    return Promise.reject(error.message || error);
-  //  }
-
+  onSubmit({value, valid}, ev: Event) {
+    ev.preventDefault();
+  }
 }
 
 export interface NewsApi {
@@ -75,7 +73,7 @@ export class NewsApiHttpDao {
   constructor(private http: HttpClient) { }
 
   getNewsFromHttp(): Observable<NewsApi> {
-    const requestUrl = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e00ae47e21d5480fba47277a55348d0d";
+    const requestUrl = 'https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e00ae47e21d5480fba47277a55348d0d';
     return this.http.get<NewsApi>(requestUrl);
   }
 }
