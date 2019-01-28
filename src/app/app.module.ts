@@ -7,12 +7,12 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
 import { LoginModule } from './login/login.module';
-//import { authReducer } from './reducers/auth.reducer';
+import { LandingModule } from './landing/landing.module';
 import { appReducer } from './reducers';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,6 +20,7 @@ import { appReducer } from './reducers';
     AppRoutingModule,
     CoreModule,
     LoginModule,
+    LandingModule,
     StoreModule.forRoot({dataOfApp: appReducer}),
     StoreDevtoolsModule.instrument(),
   ],

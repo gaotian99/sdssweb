@@ -26,6 +26,7 @@ export const ActionTypes = {
   LOGOUT:            '[Auth] Logout',
   OUTDOOR:           '[Auth] Out Door',
   WIRED:             '[Auth] Wired',
+  USERCOMFIRMED:     '[Auth] User Comfirmed',
 };
 
 /**
@@ -74,13 +75,13 @@ export class LogoutAction implements Action {
 
   constructor(public payload: Auth) { }
 }
-/*
-export class NavigatedAction implements Action {
-  readonly type = ActionTypes.NAVIGATED;
 
-  constructor(public payload: string) { }
-}
-*/
+// export class UserComfirmedAction implements Action {
+//   readonly type = ActionTypes.USERCOMFIRMED;
+
+//   constructor(public payload: Auth) { }
+// }
+
 export class OutDoorAction implements Action {
   readonly type = ActionTypes.OUTDOOR;
 
@@ -107,4 +108,5 @@ export type Actions
             | LogoutAction
             | OutDoorAction
             | WiredAction
+            // | UserComfirmedAction
             ;

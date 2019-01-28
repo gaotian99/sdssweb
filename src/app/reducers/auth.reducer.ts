@@ -18,6 +18,7 @@ export function authReducer(state = initialState, action: actions.Actions ): Aut
       return auth;
     }
 
+    case actions.ActionTypes.USERCOMFIRMED:
     case actions.ActionTypes.LOGIN_SUCCESS: {
       return {
         ...<Auth>action.payload
