@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError, switchMap, tap, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
-//import { go } from '@ngrx/router-store';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
@@ -15,14 +14,19 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions, private router: Router, private service$: AuthService
-  ) {}
+  ) { }
 
   @Effect()
   login$: Observable<Action> = this.actions$.pipe(
     ofType<LoginAction>(actions.ActionTypes.LOGIN),
     map(v => v.payload),
-    switchMap(({email, password}) => this.service$.login(email, password)),
-    map(auth => new actions.LoginSuccessAction(auth)),
+    switchMap(({ email, password }) => this.service$.login(email, password)),
+    map(auth => {
+      //this.router.navigate(['/test']);
+      let v = new actions.LoginSuccessAction(auth);
+      console.log(v);
+      return v;
+    }),
     catchError(err => of(new actions.LoginFailAction(err)))
   );
 
@@ -35,15 +39,29 @@ export class AuthEffects {
     catchError(err => of(new actions.LoginFailAction(err)))
   );
 
+  /*
+    @Effect()
+    logout$: Observable<Action> = this.actions$.pipe(
+      ofType(actions.ActionTypes.LOGOUT),
+      map(() => {
+        this.router.navigate(['/login']);
+        return new actions.OutDoorAction('Logout');
+      }));
+  */
 
   @Effect()
   logout$: Observable<Action> = this.actions$.pipe(
-    ofType(actions.ActionTypes.LOGOUT),
+    ofType<actions.LogoutAction>(actions.ActionTypes.LOGOUT),
+    map(v => v.payload),
+    switchMap((v) => this.service$.logout(v.id)),
     map(() => {
       this.router.navigate(['/login']);
-      return new actions.OutDoorAction('Logout');
-    }));
+      return new actions.OutDoorAction('Already Logout');
+    }),
+    catchError(err => of(new actions.WiredAction(err)))
+  );
 
+/*
   @Effect()
   loginAndNavigate$: Observable<Action> = this.actions$.pipe(
     ofType<LoginSuccessAction>(actions.ActionTypes.LOGIN_SUCCESS),
@@ -53,12 +71,12 @@ export class AuthEffects {
     }));
 
   @Effect()
-    registerloginAndNavigate$: Observable<Action> = this.actions$.pipe(
-      ofType(actions.ActionTypes.REGISTER_SUCCESS),
-      map(() => {
-        this.router.navigate(['/login']);
-        return new actions.OutDoorAction('Signup');
-      }));
-
+  registerloginAndNavigate$: Observable<Action> = this.actions$.pipe(
+    ofType(actions.ActionTypes.REGISTER_SUCCESS),
+    map(() => {
+      this.router.navigate(['/login']);
+      return new actions.OutDoorAction('Signup');
+    }));
+*/
 
 }

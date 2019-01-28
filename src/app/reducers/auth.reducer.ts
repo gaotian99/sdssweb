@@ -1,12 +1,23 @@
 //import { Action } from '@ngrx/store';
 import * as actions from '../actions/auth.action';
 import { Auth } from '../domain/auth.model';
+import { User } from '../domain';
 
 export const initialState: Auth = null;
 
-export function reducer(state = initialState, action: actions.Actions ): Auth {
+export function authReducer(state = initialState, action: actions.Actions ): Auth {
   switch (action.type) {
-    case actions.ActionTypes.REGISTER_SUCCESS:
+    case actions.ActionTypes.REGISTER_SUCCESS: {
+      let user = Object.assign({}, <User>action.payload);
+      let auth = {
+        user: user,
+        email: user.email,
+        userId: user.id,
+        id: '',
+      };
+      return auth;
+    }
+
     case actions.ActionTypes.LOGIN_SUCCESS: {
       return {
         ...<Auth>action.payload
@@ -14,8 +25,9 @@ export function reducer(state = initialState, action: actions.Actions ): Auth {
     }
 
     case actions.ActionTypes.REGISTER_FAIL:
-    case actions.ActionTypes.LOGIN_FAIL:
+    case actions.ActionTypes.LOGIN_FAIL: {
       return initialState;
+    }
 
     default: {
       return state;

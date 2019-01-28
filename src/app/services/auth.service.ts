@@ -47,4 +47,20 @@ export class AuthService {
         })
       );
   }
+
+  logout(id: string): Observable<any> {
+    const uri = `${this.config.uri}/${this.domain}/logout?access_token=${id}`;
+    return this.http
+      .post<any>(uri, {}, this.httpOptions).pipe(
+        map(res => {
+          //console.log(res);
+          return res;
+          }
+        ),
+        catchError((err) => {
+          return ObservableOf(err);
+        })
+      );
+
+  }
 }

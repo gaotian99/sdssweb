@@ -8,7 +8,7 @@ import { User } from '../domain/user.model';
  * enum object for all of this group's action types.
  */
 export const ActionTypes = {
-  LOGIN:          type('[Auth] Login'),
+  /*LOGIN:          type('[Auth] Login'),
   LOGIN_SUCCESS:  type('[Auth] Login Success'),
   LOGIN_FAIL:     type('[Auth] Login Fail'),
   REGISTER:          type('[Auth] Register'),
@@ -16,7 +16,16 @@ export const ActionTypes = {
   REGISTER_FAIL:     type('[Auth] Register Fail'),
   LOGOUT:            type('[Auth] Logout'),
   NAVIGATED:         type('[Auth] Navigated'),
-  OUTDOOR:           type('[Auth] Out Door'),
+  OUTDOOR:           type('[Auth] Out Door'),*/
+  LOGIN:          '[Auth] Login',
+  LOGIN_SUCCESS:  '[Auth] Login Success',
+  LOGIN_FAIL:     '[Auth] Login Fail',
+  REGISTER:          '[Auth] Register',
+  REGISTER_SUCCESS:  '[Auth] Register Success',
+  REGISTER_FAIL:     '[Auth] Register Fail',
+  LOGOUT:            '[Auth] Logout',
+  OUTDOOR:           '[Auth] Out Door',
+  WIRED:             '[Auth] Wired',
 };
 
 /**
@@ -65,15 +74,21 @@ export class LogoutAction implements Action {
 
   constructor(public payload: Auth) { }
 }
-
+/*
 export class NavigatedAction implements Action {
   readonly type = ActionTypes.NAVIGATED;
 
   constructor(public payload: string) { }
 }
-
+*/
 export class OutDoorAction implements Action {
   readonly type = ActionTypes.OUTDOOR;
+
+  constructor(public payload: string) { }
+}
+
+export class WiredAction implements Action {
+  readonly type = ActionTypes.WIRED;
 
   constructor(public payload: string) { }
 }
@@ -89,4 +104,7 @@ export type Actions
             | RegisterAction
             | RegisterSuccessAction
             | RegisterFailAction
-            | LogoutAction;
+            | LogoutAction
+            | OutDoorAction
+            | WiredAction
+            ;

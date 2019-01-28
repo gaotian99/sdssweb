@@ -17,7 +17,7 @@
       <button mat-raised-button type="submit" color="accent" [disabled]="!loginForm.valid">Login</button>
     </mat-card-content>
     <mat-card-actions class="text-right">
-      <p>Don't have a account? Please <a routerLink="/signup">Sign Up</a></p>
+      <p *ngIf="false">Don't have a account? Please <a routerLink="/signup">Sign Up</a></p>
       <p>Forget your password? <a href="">Find back</a></p>
     </mat-card-actions>
   </mat-card>
