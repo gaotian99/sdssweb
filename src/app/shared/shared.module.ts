@@ -10,15 +10,16 @@ import {
   MatSlideToggleModule,
   MatGridListModule,
 } from '@angular/material';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageListSelectComponent } from './image-list-select/image-list-select.component';
 import { TeamPlayersListComponent } from './team-players-list/team-players-list.component';
+import { MatchesListComponent } from './matches-list/matches-list.component';
 // import { MatIconRegistry } from '@angular/material';
 
 @NgModule({
-  declarations: [ImageListSelectComponent, TeamPlayersListComponent],
+  declarations: [ImageListSelectComponent, TeamPlayersListComponent, MatchesListComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -32,7 +33,7 @@ import { TeamPlayersListComponent } from './team-players-list/team-players-list.
     MatGridListModule,
     MatSidenavModule,
     BrowserAnimationsModule,
-//    MatIconRegistry,
+    //    MatIconRegistry,
   ],
   exports: [
     CommonModule,
@@ -47,8 +48,10 @@ import { TeamPlayersListComponent } from './team-players-list/team-players-list.
     MatGridListModule,
     MatSidenavModule,
     BrowserAnimationsModule,
-//    MatIconRegistry,
+    //    MatIconRegistry,
     ImageListSelectComponent,
+    TeamPlayersListComponent,
+    MatchesListComponent,
   ],
   entryComponents: []
 })

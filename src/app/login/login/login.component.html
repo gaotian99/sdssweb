@@ -1,4 +1,4 @@
-<form  [formGroup]="loginForm" (ngSubmit)='onSubmit(loginForm, $event)'>
+<form [formGroup]="loginForm" (ngSubmit)='onSubmit(loginForm, $event)'>
   <mat-card>
     <mat-card-header>
       <mat-card-title>
@@ -21,7 +21,7 @@
       <p>Forget your password? <a href="">Find back</a></p>
     </mat-card-actions>
   </mat-card>
-
+  <!--
   <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -33,6 +33,6 @@
           {{oneContent}}
           <p><a [href]="oneUrl">Detail</a>, got from <a href="https://newsapi.org">NewsAPI</a></p>
       </mat-card-content>
-
     </mat-card>
+-->
 </form>

@@ -25,6 +25,8 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { AuthGuardService } from './auth-guard.service';
+import { TeamService } from './team.service';
+import { TeamUserService } from './teamuser.service';
 
 @NgModule()
 export class ServicesModule {
@@ -35,6 +37,8 @@ export class ServicesModule {
         AuthService,
         UserService,
         AuthGuardService,
+        TeamUserService,
+        TeamService,
       ]
     };
   }

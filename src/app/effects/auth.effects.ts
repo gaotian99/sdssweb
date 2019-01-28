@@ -50,6 +50,13 @@ export class AuthEffects {
     catchError(err => of(new actions.WiredAction(err)))
   );
 
+  @Effect()
+  wired$: Observable<Action> = this.actions$.pipe(
+    ofType(actions.ActionTypes.WIRED),
+    map(() => {
+      this.router.navigate(['/login']);
+      return new actions.OutDoorAction('Unknown Auth Status');
+    }));
 
   // @Effect()
   // loginAndNavigate$: Observable<Action> = this.actions$.pipe(
