@@ -1,12 +1,9 @@
-import { Component, Input, forwardRef, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl } from '@angular/forms';
-import { Match, MatchAccessLevel } from 'src/app/domain/match.model';
+import { Component, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Match } from 'src/app/domain/match.model';
 import { UserService } from 'src/app/services/user.service';
-import { map } from 'rxjs/operators';
-import { User } from 'src/app/domain/user.model';
 import { Team } from 'src/app/domain/team.model';
 import { TeamService } from 'src/app/services/team.service';
-import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatchService } from 'src/app/services/match.service';
 import { CrossModelService } from 'src/app/services/crossmodel.service';
 
@@ -53,7 +50,6 @@ export class MatchesListComponent implements ControlValueAccessor {
     private crossModelService: CrossModelService) { }
 
   ngOnInit(): void {
-    //if (this.level > 0) console.log(this.level);
     this.crossModelService.getTeamsByLevel(this.initiator, this.token, this.level)
       //this.userService.getTeamsByUserId(this.initiator, this.token)
       .subscribe(teams => {
@@ -66,6 +62,15 @@ export class MatchesListComponent implements ControlValueAccessor {
                 if (matches != null && matches.length > 0) {
                   this.dataSource = this.dataSource.concat(matches);
                   this.dataSource.forEach((match) => {
+                    match.teams = [{
+                      name: '',
+                      id: null,
+                      leagueID: null,
+                    }, {
+                      name: '',
+                      id: null,
+                      leagueID: null,
+                    }];
                     this.matchService.getTeamsByMatchId(match.id, this.token)
                       .subscribe(teams => {
                         if (teams != null && teams.length > 0) {
