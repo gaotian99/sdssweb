@@ -68,6 +68,30 @@ export class UserService {
       );
   }
 
+  getUsersById(userId: string, token: string): Observable<User[]> {
+    const uri = `${this.config.uri}/${this.domain}/${userId}?access_token=${token}`;
+    return this.http
+      .get<User>(uri, this.httpOptions).pipe(
+        map(res => {
+          return [{
+            id: res.id,
+            email: res.email,
+            password: res.password,
+            name: res.name,
+            avatar: res.avatar,
+            age: res.age,
+            sex: res.sex,
+            phoneNumber: res.phoneNumber,
+            role: res.role,
+            description: res.description
+          },]
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
+
   getOneTeamByUserId(userId: string, token: string): Observable<Team> {
     const uri = `${this.config.uri}/${this.domain}/${userId}/teams?access_token=${token}`;
     return this.http
@@ -94,5 +118,17 @@ export class UserService {
       );
   }
 
+  getUsers(token: string): Observable<User[]> {
+    const uri = `${this.config.uri}/${this.domain}?access_token=${token}`;
+    return this.http
+      .get<User[]>(uri, this.httpOptions).pipe(
+        map(res => {
+          return res;
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
 
 }

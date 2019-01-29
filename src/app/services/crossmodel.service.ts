@@ -25,7 +25,7 @@ export class CrossModelService {
 
   //0=guest, 1=player, 2=team, 3=league, 4=globle
   getTeamsByLevel(id: string, token: string, level: number): Observable<Team[]> {
-    if (level == 0 || level == 1) {
+    if (level == 1) {
       return this.userService.getTeamsByUserId(id, token);
     }
     if (level == 2) {
@@ -37,4 +37,31 @@ export class CrossModelService {
     return this.teamService.getTeams(token);
   }
 
+  getUsersByLevel(id: string, token: string, level: number): Observable<User[]> {
+    if (level == 1) {
+      return this.userService.getUsersById(id, token);
+    }
+    if (level == 2) {
+      return this.teamService.getUsersByTeamId(id, token);
+    }
+    if (level == 3) {
+      return this.getUsersByLeagueId(id, token);
+    }
+    return this.userService.getUsers(token);
+  }
+
+  getUsersByLeagueId(leagueId: string, token: string): Observable<User[]> {
+    let leaguePlayers: User[] = [];
+    if (leagueId === null) return ObservableOf(leaguePlayers);
+    this.leagueService.getTeamsByLeagueId(leagueId, token)
+      .subscribe(teams => {
+        teams.forEach(team => {
+          this.teamService.getUsersByTeamId(team.id, token)
+            .subscribe(users => {
+              leaguePlayers = leaguePlayers.concat(users);
+            });
+        });
+        return ObservableOf(leaguePlayers);
+      });
+  }
 }
