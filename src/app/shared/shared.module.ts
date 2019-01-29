@@ -9,6 +9,7 @@ import {
   MatListModule,
   MatSlideToggleModule,
   MatGridListModule,
+  MatTableModule,
 } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material';
@@ -33,7 +34,7 @@ import { MatchesListComponent } from './matches-list/matches-list.component';
     MatGridListModule,
     MatSidenavModule,
     BrowserAnimationsModule,
-    //    MatIconRegistry,
+    MatTableModule,
   ],
   exports: [
     CommonModule,
@@ -48,10 +49,10 @@ import { MatchesListComponent } from './matches-list/matches-list.component';
     MatGridListModule,
     MatSidenavModule,
     BrowserAnimationsModule,
-    //    MatIconRegistry,
     ImageListSelectComponent,
     TeamPlayersListComponent,
     MatchesListComponent,
+    MatTableModule,
   ],
   entryComponents: []
 })

@@ -16,10 +16,11 @@ export class TeamService {
   constructor(private http: HttpClient, @Inject('BASE_CONFIG') private config) { }
 
   getMatchesByTeamId(teamId: string, token: string): Observable<Match[]> {
-    const uri = `${this.config.uri}/${this.domain}/${teamId}/teams?access_token=${token}`;
+    const uri = `${this.config.uri}/${this.domain}/${teamId}/matches?access_token=${token}`;
     return this.http
       .get<Match[]>(uri, this.httpOptions).pipe(
         map(res => {
+          console.log(res);
           return res;
         }),
         catchError((err) => {

@@ -1,17 +1,17 @@
-<p>
-  landing-page works!
-</p>
-<h2> Welcome {{user.name}} </h2>
-<h3> You are in {{teams.length}} teams, and they are:</h3>
+<form [formGroup]="landingForm">
+  <h2> Welcome {{user.name}} </h2>
+  <h3> You are in {{teams.length}} teams, and they are:</h3>
 
-<ul>
-  <li *ngFor="let team of teams, let i = index">
-    {{team.name}}
-  </li>
-</ul>
-<app-matches-list>
+  <ul>
+    <li *ngFor="let team of teams, let i = index">
+      {{team.name}}
+    </li>
+  </ul>
+  <app-matches-list [dataSource]="games" [title]="'Rencent Games'" formControlName="matchesList">
 
-</app-matches-list>
-<app-team-players-list>
+  </app-matches-list>
+  <app-team-players-list>
 
-</app-team-players-list>
+  </app-team-players-list>
+
+</form>
