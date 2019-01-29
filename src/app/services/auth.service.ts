@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of as ObservableOf } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../domain/user.model';
-import { Auth } from '../domain/auth.model';
 
 @Injectable()
 export class AuthService {
@@ -28,16 +27,13 @@ export class AuthService {
     return this.http
       .post<any>(uri, { 'email': email, 'password': password }, this.httpOptions).pipe(
         map(res => {
-          //console.log(res);
           return {
             id: res.id,
             userId: res.userId,
             ttl: res.ttl
           }
         }),
-        catchError((err) => //ObservableOf([]))
-        {
-          //console.log(err);
+        catchError((err) => {
           // err.error.error.message
           return ObservableOf([]);
         })
@@ -49,7 +45,6 @@ export class AuthService {
     return this.http
       .post<any>(uri, {}, this.httpOptions).pipe(
         map(res => {
-          //console.log(res);
           return res;
         }
         ),

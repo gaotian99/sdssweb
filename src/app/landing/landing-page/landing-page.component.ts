@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/domain/user.model';
 import { Team } from 'src/app/domain/team.model';
-import { Match } from 'src/app/domain/match.model';
+import { Match, MatchAccessLevel } from 'src/app/domain/match.model';
 import { TeamService } from 'src/app/services/team.service';
 
 @Component({

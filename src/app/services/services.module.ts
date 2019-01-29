@@ -1,32 +1,12 @@
-/*
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from './auth.service';
-import { UserService } from './user.service';
-import { AuthGuardService } from './auth-guard.service';
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ],
-  providers: [
-    CommonModule,
-    AuthService,
-    UserService,
-    AuthGuardService,
-  ]
-})
-export class ServicesModule { }
-*/
-
-
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { AuthGuardService } from './auth-guard.service';
 import { TeamService } from './team.service';
 import { TeamUserService } from './teamuser.service';
+import { MatchService } from './match.service';
+import { CrossModelService } from './crossmodel.service';
+import { LeagueService } from './league.service';
 
 @NgModule()
 export class ServicesModule {
@@ -39,6 +19,9 @@ export class ServicesModule {
         AuthGuardService,
         TeamUserService,
         TeamService,
+        MatchService,
+        CrossModelService,
+        LeagueService,
       ]
     };
   }

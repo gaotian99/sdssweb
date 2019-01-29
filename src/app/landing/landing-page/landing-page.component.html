@@ -7,7 +7,7 @@
       {{team.name}}
     </li>
   </ul>
-  <app-matches-list [initiator]="auth.userId" [level]="'player'" [token]="auth.id" [twoTeam]="true" [title]="'Rencent Games'"
+  <app-matches-list [initiator]="auth.userId" [level]="1" [token]="auth.id" [twoTeam]="false" [title]="'Rencent Games'"
     formControlName="matchesList">
   </app-matches-list>
   <app-team-players-list>

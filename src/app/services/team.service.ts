@@ -2,9 +2,8 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of as ObservableOf } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { User } from '../domain/user.model';
-import { Auth } from '../domain/auth.model';
 import { Match } from '../domain/match.model';
+import { Team } from '../domain/team.model';
 
 @Injectable()
 export class TeamService {
@@ -20,7 +19,6 @@ export class TeamService {
     return this.http
       .get<Match[]>(uri, this.httpOptions).pipe(
         map(res => {
-          // console.log(res);
           return res;
         }),
         catchError((err) => {
@@ -28,4 +26,45 @@ export class TeamService {
         })
       );
   }
+
+  getTeamsByTeamId(teamId: string, token: string): Observable<Team[]> {
+    const uri = `${this.config.uri}/${this.domain}/${teamId}?access_token=${token}`;
+    return this.http
+      .get<Team>(uri, this.httpOptions).pipe(
+        map(res => {
+          let teams = [];
+          return teams.concat(res);
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
+
+  getTeamByTeamId(teamId: string, token: string): Observable<Team> {
+    const uri = `${this.config.uri}/${this.domain}/${teamId}?access_token=${token}`;
+    return this.http
+      .get<Team>(uri, this.httpOptions).pipe(
+        map(res => {
+          return res;
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
+
+  getTeams(token: string): Observable<Team[]> {
+    const uri = `${this.config.uri}/${this.domain}?access_token=${token}`;
+    return this.http
+      .get<Team[]>(uri, this.httpOptions).pipe(
+        map(res => {
+          return res;
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
+
 }
