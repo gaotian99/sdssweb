@@ -7,8 +7,8 @@
       {{team.name}}
     </li>
   </ul>
-  <app-matches-list [dataSource]="games" [title]="'Rencent Games'" formControlName="matchesList">
-
+  <app-matches-list [initiator]="auth.userId" [level]="'player'" [token]="auth.id" [twoTeam]="true" [title]="'Rencent Games'"
+    formControlName="matchesList">
   </app-matches-list>
   <app-team-players-list>
 

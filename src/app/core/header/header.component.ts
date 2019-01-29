@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     let auth = null;
     this.auth$.subscribe(v => auth = v);
-    console.log(auth);
+    // console.log(auth);
     this.store$.dispatch(new actions.LogoutAction(auth));
   }
 }

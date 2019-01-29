@@ -20,7 +20,7 @@ export class TeamService {
     return this.http
       .get<Match[]>(uri, this.httpOptions).pipe(
         map(res => {
-          console.log(res);
+          // console.log(res);
           return res;
         }),
         catchError((err) => {

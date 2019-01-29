@@ -45,26 +45,18 @@ export class LandingPageComponent implements OnInit {
         }
       });
 
-    this.userService.getTeamsByUserId(this.auth.userId, this.auth.id)
-      .subscribe(teams => {
-        if (teams != null && teams.length > 0) {
-          this.teams = [...teams];
-          this.teamService.getMatchesByTeamId(teams[0].id, this.auth.id)
-            .subscribe(matches => {
-              if (matches != null && matches.length > 0) {
-                this.games = [...matches];
-              }
-            })
-        }
-      });
-
-    // this.teamService.getMatchesByTeamId(this.teams[0].id, this.auth.id)
-    //   .subscribe(matches => {
-    //     if (matches != null && matches.length > 0) {
-    //       this.games = [...matches];
-    //     }
-    //   })
-
+    // this.userService.getTeamsByUserId(this.auth.userId, this.auth.id)
+    // .subscribe(teams => {
+    //   if (teams != null && teams.length > 0) {
+    //     this.teams = [...teams];
+    //     this.teamService.getMatchesByTeamId(teams[0].id, this.auth.id)
+    //       .subscribe(matches => {
+    //         if (matches != null && matches.length > 0) {
+    //           this.games = [...matches];
+    //         }
+    //       })
+    //   }
+    // });
   }
 
 }
