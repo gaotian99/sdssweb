@@ -67,7 +67,6 @@ export class CrossModelService {
     return this.userService.getUsers(token);
   }
 
-
   getUsersByLeagueId(leagueId: string, token: string): Observable<User[]> {
     let leaguePlayers: User[] = [];
     if (leagueId === null) return ObservableOf(leaguePlayers);

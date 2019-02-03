@@ -1,8 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { TeamService } from 'src/app/services/team.service';
-import { MatchService } from 'src/app/services/match.service';
 import { CrossModelService } from 'src/app/services/crossmodel.service';
 import { User } from 'src/app/domain';
 
@@ -28,9 +25,7 @@ export class TeamPlayersListComponent implements ControlValueAccessor {
   displayedColumns: string[] = []; //['gameDate', 'teams[0].name', 'teams[1].name', 'location'];
   dataSource: User[] = [];
 
-  constructor(private userService: UserService,
-    private teamService: TeamService,
-    private matchService: MatchService,
+  constructor(
     private crossModelService: CrossModelService) { }
 
   ngOnInit(): void {
