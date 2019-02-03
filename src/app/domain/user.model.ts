@@ -9,4 +9,5 @@ export interface User {
   phoneNumber?: string;
   role?: string;
   description?: string;
+  position?: string;
 }

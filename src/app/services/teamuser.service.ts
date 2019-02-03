@@ -14,4 +14,43 @@ export class TeamUserService {
   };
   constructor(private http: HttpClient, @Inject('BASE_CONFIG') private config) { }
 
+  getTeamsUsersByIds(teamId: string, userId: string, token: string): Observable<TeamUser[]> {
+    const uri = `${this.config.uri}/${this.domain}?filter[where][userID]=${userId}&filter[where][teamID]=${teamId}&access_token=${token}`;
+    return this.http
+      .get<TeamUser[]>(uri, this.httpOptions).pipe(
+        map(res => {
+          return res;
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
+
+  getTeamsUsersByTeamId(teamId: string, token: string): Observable<TeamUser[]> {
+    const uri = `${this.config.uri}/${this.domain}?filter[where][teamID]=${teamId}&access_token=${token}`;
+    return this.http
+      .get<TeamUser[]>(uri, this.httpOptions).pipe(
+        map(res => {
+          return res;
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
+
+  getTeamsUsersByUserId(userId: string, token: string): Observable<TeamUser[]> {
+    const uri = `${this.config.uri}/${this.domain}?filter[where][userID]=${userId}&access_token=${token}`;
+    return this.http
+      .get<TeamUser[]>(uri, this.httpOptions).pipe(
+        map(res => {
+          return res;
+        }),
+        catchError((err) => {
+          return ObservableOf(null);
+        })
+      );
+  }
+
 }

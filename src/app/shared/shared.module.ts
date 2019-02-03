@@ -17,10 +17,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageListSelectComponent } from './image-list-select/image-list-select.component';
 import { TeamPlayersListComponent } from './team-players-list/team-players-list.component';
 import { MatchesListComponent } from './matches-list/matches-list.component';
+import { TeamsListComponent } from './teams-list/teams-list.component';
 // import { MatIconRegistry } from '@angular/material';
 
 @NgModule({
-  declarations: [ImageListSelectComponent, TeamPlayersListComponent, MatchesListComponent],
+  declarations: [ImageListSelectComponent, TeamPlayersListComponent, MatchesListComponent, TeamsListComponent],
   imports: [
     CommonModule,
     MatToolbarModule,

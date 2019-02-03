@@ -9,6 +9,7 @@ import { Team } from 'src/app/domain/team.model';
 import { TeamService } from 'src/app/services/team.service';
 import { MatchService } from 'src/app/services/match.service';
 import { LeagueService } from './league.service';
+import { TeamUserService } from './teamuser.service';
 
 @Injectable()
 export class CrossModelService {
@@ -21,9 +22,10 @@ export class CrossModelService {
     private teamService: TeamService,
     private matchService: MatchService,
     private leagueService: LeagueService,
+    private teamUserService: TeamUserService,
     @Inject('BASE_CONFIG') private config) { }
 
-  //0=guest, 1=player, 2=team, 3=league, 4=globle
+  // 0=guest, 1=player, 2=team, 3=league, 4=globle
   getTeamsByLevel(id: string, token: string, level: number): Observable<Team[]> {
     if (level == 1) {
       return this.userService.getTeamsByUserId(id, token);
@@ -37,6 +39,7 @@ export class CrossModelService {
     return this.teamService.getTeams(token);
   }
 
+  // 0=guest, 1=player, 2=team, 3=league, 4=globle
   getUsersByLevel(id: string, token: string, level: number): Observable<User[]> {
     if (level == 1) {
       return this.userService.getUsersById(id, token);
@@ -49,6 +52,21 @@ export class CrossModelService {
     }
     return this.userService.getUsers(token);
   }
+
+  // 0=guest, 1=player, 2=team, 3=league, 4=globle
+  getUsersAndPositionByLevel(id: string, token: string, level: number): Observable<User[]> {
+    if (level == 1) {
+      return this.getUsersAndPositionByUserId(id, token);
+    }
+    if (level == 2) {
+      return this.getUsersAndPositionByTeamId(id, token);
+    }
+    if (level == 3) {
+      return this.getUsersAndPositionByLeagueId(id, token);
+    }
+    return this.userService.getUsers(token);
+  }
+
 
   getUsersByLeagueId(leagueId: string, token: string): Observable<User[]> {
     let leaguePlayers: User[] = [];
@@ -64,4 +82,70 @@ export class CrossModelService {
         return ObservableOf(leaguePlayers);
       });
   }
+
+  getUsersAndPositionByTeamId(teamId: string, token: string): Observable<User[]> {
+    let playersWithPosition: User[] = [];
+    if (teamId === null) return ObservableOf(playersWithPosition);
+    this.teamService.getUsersByTeamId(teamId, token).subscribe( (users) => {
+      users.forEach( (user) => {
+        this.teamUserService.getTeamsUsersByIds(teamId, user.id, token).subscribe( (teamusers) => {
+          teamusers.forEach((teamuser) => {
+            let userWP = {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              age: user.age,
+              sex: user.sex,
+              phoneNumber: user.phoneNumber,
+              role: user.role,
+              description: user.description,
+              position: teamuser.position,
+            };
+            playersWithPosition.push(userWP);
+          })
+        })
+      })
+    });
+    return ObservableOf(playersWithPosition);
+  }
+
+  getUsersAndPositionByLeagueId(leagueId: string, token: string): Observable<User[]> {
+    let playersWithPosition: User[] = [];
+    if (leagueId === null) return ObservableOf(playersWithPosition);
+    this.leagueService.getTeamsByLeagueId(leagueId, token).subscribe( (teams) => {
+      teams.forEach( (team) => {
+        this.getUsersAndPositionByTeamId(team.id, token).subscribe( (users) => {
+          playersWithPosition.concat(users);
+        })
+      })
+    });
+    return ObservableOf(playersWithPosition);
+  }
+
+  getUsersAndPositionByUserId(userId: string, token: string): Observable<User[]> {
+    let playersWithPosition: User[] = [];
+    if (userId === null) return ObservableOf(playersWithPosition);
+    this.teamUserService.getTeamsUsersByUserId(userId, token).subscribe((teamusers) => {
+      teamusers.forEach((teamuser) => {
+        this.userService.getOneUserById(userId, token).subscribe((user) => {
+          let userWP = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            age: user.age,
+            sex: user.sex,
+            phoneNumber: user.phoneNumber,
+            role: user.role,
+            description: user.description,
+            position: teamuser.position,
+          };
+          playersWithPosition.push(userWP);
+      })
+      })
+    })
+    return ObservableOf(playersWithPosition);  
+  }
+
 }
