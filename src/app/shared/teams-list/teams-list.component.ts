@@ -32,8 +32,10 @@ export class TeamsListComponent implements ControlValueAccessor {
   ngOnInit() {
     this.crossModelService.getTeamsByLevel(this.initiator, this.token, this.level)
       .subscribe(teams => {
+        // console.log(teams);
         if (teams != null && teams.length > 0) {
-          this.dataSource = [...teams];
+          this.dataSource = teams;
+          // console.log(this.dataSource);
         }
         if (this.winInSeason) this.displayedColumns = ['name', 'description', 'winInSeason'];
         else this.displayedColumns = ['name', 'description'];
@@ -41,13 +43,13 @@ export class TeamsListComponent implements ControlValueAccessor {
 
   }
 
-    //private propageteChange = (_: any) => { };
+  //private propageteChange = (_: any) => { };
 
-    writeValue(obj: any): void {
-    }
-    registerOnChange(fn: any): void {
-      //this.propageteChange = fn;
-    }
-    registerOnTouched(fn: any): void { }
-  
+  writeValue(obj: any): void {
+  }
+  registerOnChange(fn: any): void {
+    //this.propageteChange = fn;
+  }
+  registerOnTouched(fn: any): void { }
+
 }

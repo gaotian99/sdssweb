@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of as ObservableOf } from 'rxjs';
+import { Observable, from, of as ObservableOf, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Match, MatchAccessLevel } from 'src/app/domain/match.model';
 import { UserService } from 'src/app/services/user.service';
@@ -10,6 +10,7 @@ import { TeamService } from 'src/app/services/team.service';
 import { MatchService } from 'src/app/services/match.service';
 import { LeagueService } from './league.service';
 import { TeamUserService } from './teamuser.service';
+import { TeamUser } from '../domain/teamuser.model';
 
 @Injectable()
 export class CrossModelService {
@@ -67,6 +68,18 @@ export class CrossModelService {
     return this.userService.getUsers(token);
   }
 
+  // 0=guest, 1=player, 2=team, 3=league, 4=globle
+  getTeamUsersByLevel(userId: string, id: string, token: string, level: number): Observable<TeamUser[]> {
+    if (level == 1) {
+      return this.teamUserService.getTeamsUsersByUserId(userId, token);
+    }
+    if (level == 2) {
+      return this.teamUserService.getTeamsUsersByIds(id, userId, token);
+    }
+    return null; // dangous
+  }
+
+
   getUsersByLeagueId(leagueId: string, token: string): Observable<User[]> {
     let leaguePlayers: User[] = [];
     if (leagueId === null) return ObservableOf(leaguePlayers);
@@ -85,36 +98,38 @@ export class CrossModelService {
   getUsersAndPositionByTeamId(teamId: string, token: string): Observable<User[]> {
     let playersWithPosition: User[] = [];
     if (teamId === null) return ObservableOf(playersWithPosition);
-    this.teamService.getUsersByTeamId(teamId, token).subscribe( (users) => {
-      users.forEach( (user) => {
-        this.teamUserService.getTeamsUsersByIds(teamId, user.id, token).subscribe( (teamusers) => {
+    this.teamService.getUsersByTeamId(teamId, token).subscribe((users) => {
+      users.forEach((user) => {
+        this.teamUserService.getTeamsUsersByIds(teamId, user.id, token).subscribe((teamusers) => {
           teamusers.forEach((teamuser) => {
-            let userWP = {
-              id: user.id,
-              email: user.email,
+            let userWP: User = {
+              // id: user.id,
+              // email: user.email,
               name: user.name,
               avatar: user.avatar,
               age: user.age,
               sex: user.sex,
               phoneNumber: user.phoneNumber,
               role: user.role,
-              description: user.description,
               position: teamuser.position,
             };
             playersWithPosition.push(userWP);
+            //console.log(userWP);
           })
         })
       })
     });
-    return ObservableOf(playersWithPosition);
+    //console.log(playersWithPosition);
+    return of(playersWithPosition);
   }
+
 
   getUsersAndPositionByLeagueId(leagueId: string, token: string): Observable<User[]> {
     let playersWithPosition: User[] = [];
     if (leagueId === null) return ObservableOf(playersWithPosition);
-    this.leagueService.getTeamsByLeagueId(leagueId, token).subscribe( (teams) => {
-      teams.forEach( (team) => {
-        this.getUsersAndPositionByTeamId(team.id, token).subscribe( (users) => {
+    this.leagueService.getTeamsByLeagueId(leagueId, token).subscribe((teams) => {
+      teams.forEach((team) => {
+        this.getUsersAndPositionByTeamId(team.id, token).subscribe((users) => {
           playersWithPosition.concat(users);
         })
       })
@@ -126,6 +141,7 @@ export class CrossModelService {
     let playersWithPosition: User[] = [];
     if (userId === null) return ObservableOf(playersWithPosition);
     this.teamUserService.getTeamsUsersByUserId(userId, token).subscribe((teamusers) => {
+      // console.log(teamusers);
       teamusers.forEach((teamuser) => {
         this.userService.getOneUserById(userId, token).subscribe((user) => {
           let userWP = {
@@ -140,11 +156,13 @@ export class CrossModelService {
             description: user.description,
             position: teamuser.position,
           };
+          // console.log(userWP);
           playersWithPosition.push(userWP);
-      })
+        })
       })
     })
-    return ObservableOf(playersWithPosition);  
+    // console.log(playersWithPosition);
+    return ObservableOf(playersWithPosition);
   }
 
 }

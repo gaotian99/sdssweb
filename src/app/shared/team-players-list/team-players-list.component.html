@@ -1,40 +1,37 @@
-<p>
-  team-players-list works!
-</p>
 <span>
   {{title}}
 </span>
 <div>
-  <table mat-table [dataSource]="dataSource" class="team-players-list-table" matSort matSortDirection="asc">
+  <table mat-table [dataSource]="dataSource" class="players-list-table" matSort matSortDirection="asc">
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Match At </th>
-      <td mat-cell *matCellDef="let element"> {{element.name | date:'MM-dd-yyyy HH:mm'}} </td>
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{ element.name }}
+      </td>
     </ng-container>
 
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef> Age </th>
+      <td mat-cell *matCellDef="let element"> {{ element.age }}
+      </td>
+    </ng-container>
 
-    <ng-container matColumnDef="position" *ngIf="position">
-      <th mat-header-cell *matHeaderCellDef> Team </th>
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> Position </th>
       <td mat-cell *matCellDef="let element"> {{ element.position }}
       </td>
     </ng-container>
 
-
-    <ng-container matColumnDef="age">
-      <th mat-header-cell *matHeaderCellDef> vs Team </th>
-      <td mat-cell *matCellDef="let element"> {{ element.age}}
+    <ng-container matColumnDef="sex">
+      <th mat-header-cell *matHeaderCellDef> Sex </th>
+      <td mat-cell *matCellDef="let element"> {{ element.sex }}
       </td>
     </ng-container>
 
-
-    <ng-container matColumnDef="sex">
-      <th mat-header-cell *matHeaderCellDef> Location </th>
-      <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="phonenumber">
-      <th mat-header-cell *matHeaderCellDef> Location </th>
-      <td mat-cell *matCellDef="let element"> {{element.phonenumber}} </td>
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+      <td mat-cell *matCellDef="let element"> {{ element.phoneNumber }}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -53,6 +53,7 @@ import { TeamsListComponent } from './teams-list/teams-list.component';
     ImageListSelectComponent,
     TeamPlayersListComponent,
     MatchesListComponent,
+    TeamsListComponent,
     MatTableModule,
   ],
   entryComponents: []

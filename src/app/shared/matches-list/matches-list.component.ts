@@ -21,11 +21,11 @@ import { CrossModelService } from 'src/app/services/crossmodel.service';
 })
 export class MatchesListComponent implements ControlValueAccessor {
   @Input() initiator = 'guest';
-  @Input() level = 0; //0=guest, 1=player, 2=team, 3=league, 4=globle
+  @Input() level = 0; // 0=guest, 1=player, 2=team, 3=league, 4=globle
   @Input() token = null;
   @Input() twoTeam = true;
   @Input() title = 'Games';
-  displayedColumns: string[] = []; //['gameDate', 'teams[0].name', 'teams[1].name', 'location'];
+  displayedColumns: string[] = []; // ['gameDate', 'teams[0].name', 'teams[1].name', 'location'];
   teams: Team[] = [];
   teamsId: string[] = [];
   dataSource: Match[] = [];
@@ -87,6 +87,7 @@ export class MatchesListComponent implements ControlValueAccessor {
         }
         if (this.twoTeam) this.displayedColumns = ['gameDate', 'teams[0].name', 'teams[1].name', 'location'];
         else this.displayedColumns = ['gameDate', 'teams[1].name', 'location'];
+        console.log(teams);
       });
 
   }

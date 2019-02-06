@@ -35,7 +35,7 @@ import { AppEffectsModule } from '../effects';
     {
       provide: 'BASE_CONFIG',
       useValue: {
-        uri: 'https://goku8.bid/api'
+        uri: 'http://localhost:3000/api'
       }
     }
   ]
